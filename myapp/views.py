@@ -46,3 +46,10 @@ def update(request):
     update_person.save()
     text = "update"
     return HttpResponse(text)
+
+
+def delete(request, id):
+    if request.method == "DELETE":
+        person = Person.objects.get(id=id)
+        person.delete()
+        return HttpResponse("Contact is deleted")
