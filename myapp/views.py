@@ -34,3 +34,15 @@ def get_person(request, id):
     if request.method == "GET":
         person = Person.objects.get(id=id)
         return HttpResponse(person.__str__())
+
+
+def update(request):
+    person_dict = json.loads(request.body)
+    name = person_dict.get('name')
+    country = person_dict.get('country')
+    update_person = Person.objects.get(name=name)
+    update_person.country = country
+    print(update_person.country)
+    update_person.save()
+    text = "update"
+    return HttpResponse(text)
