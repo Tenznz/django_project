@@ -2,11 +2,10 @@ import json
 
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-
-# Create your views here.
 from myapp.models import Person
 
 
+# Create your views here.
 def retrive_all(request):
     # p = Person.objects.all()
     # person_list = list(p.values())
@@ -21,4 +20,11 @@ def retrive_all(request):
     return HttpResponse(person_list)
 
 
-
+def add(request):
+    if request.method == "POST":
+        person_dict = json.loads(request.body)
+        name = person_dict.get('name')
+        country = person_dict.get('country')
+        q = Person(name=name, country=country)
+        q.save()
+        return HttpResponse("Added")
