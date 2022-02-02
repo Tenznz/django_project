@@ -28,3 +28,9 @@ def add(request):
         q = Person(name=name, country=country)
         q.save()
         return HttpResponse("Added")
+
+
+def get_person(request, id):
+    if request.method == "GET":
+        person = Person.objects.get(id=id)
+        return HttpResponse(person.__str__())
